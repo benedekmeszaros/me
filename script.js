@@ -53,11 +53,11 @@ const loadProjects = async () => {
   selectTab(0);
   appendTopic("/Unity Projects");
   let i = 1;
-  for (i; i < 4; i++) await loadSnippet(`/cards/card-project-${i}.html`, true);
+  for (i; i < 4; i++) await loadSnippet(`cards/card-project-${i}.html`, true);
   appendTopic("/Full-Stack Projects");
-  for (i; i < 6; i++) await loadSnippet(`/cards/card-project-${i}.html`, true);
+  for (i; i < 6; i++) await loadSnippet(`cards/card-project-${i}.html`, true);
   appendTopic("/AI Research");
-  await loadSnippet(`/cards/card-project-${i}.html`, true);
+  await loadSnippet(`cards/card-project-${i}.html`, true);
 
   Array.from(showcase.querySelectorAll(".slide-wrapper")).forEach((wrapper) => {
     const img = wrapper.querySelector("img");
@@ -69,7 +69,7 @@ const loadProjects = async () => {
 
 const showJournal = async (id) => {
   selectTab(0);
-  await loadSnippet(`/journals/journal-project-${id}.html`, false);
+  await loadSnippet(`journals/journal-project-${id}.html`, false);
   Array.from(showcase.querySelectorAll(".slide-wrapper")).forEach((wrapper) => {
     const img = wrapper.querySelector("img");
     img.addEventListener("click", (e) => {
@@ -80,11 +80,11 @@ const showJournal = async (id) => {
 
 const showAbout = () => {
   selectTab(1);
-  loadSnippet(`/pages/about.html`, false);
+  loadSnippet(`pages/about.html`, false);
 };
 const showContact = () => {
   selectTab(2);
-  loadSnippet(`/pages/contact.html`, false);
+  loadSnippet(`pages/contact.html`, false);
 };
 
 const clearForm = () => {
