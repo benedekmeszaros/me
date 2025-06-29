@@ -4,25 +4,16 @@ const main = showcase.parentNode;
 const tabs = [];
 let globalScrollY;
 
-const loadSnippet = async (path, append) => {
-  if (!append) showcase.innerHTML = "";
-  return fetch(path)
-    .then((res) => {
-      if (res.ok) {
-        return res.text();
-      }
-    })
-    .then((htmlSnipped) => {
-      if (append) showcase.innerHTML += htmlSnipped;
-      else showcase.innerHTML = htmlSnipped;
-    });
+const loadSnippet = async (path) => {
+  return fetch(path).then((res) => {
+    if (res.ok) {
+      return res.text();
+    }
+  });
 };
 
-const appendTopic = (label) => {
-  const topic = showcase.appendChild(document.createElement("h3"));
-  topic.textContent = label;
-  topic.classList.add("topic");
-  return topic;
+const getTopicSnippet = (label) => {
+  return `<h3 class="topic">${label}</h3>`;
 };
 
 const showImagePreview = (src) => {
@@ -49,15 +40,20 @@ const cloaseImagePreview = () => {
 };
 
 const loadProjects = async () => {
+  localStorage.setItem("page", 0);
   showcase.innerHTML = "";
+  let snippet = "";
   selectTab(0);
-  appendTopic("/Unity Projects");
+  snippet += getTopicSnippet("/Unity Projects");
   let i = 1;
-  for (i; i < 4; i++) await loadSnippet(`cards/card-project-${i}.html`, true);
-  appendTopic("/Full-Stack Projects");
-  for (i; i < 6; i++) await loadSnippet(`cards/card-project-${i}.html`, true);
-  appendTopic("/AI Research");
-  await loadSnippet(`cards/card-project-${i}.html`, true);
+  for (i; i < 4; i++)
+    snippet += await loadSnippet(`/cards/card-project-${i}.html`, true);
+  snippet += getTopicSnippet("/Full-Stack Projects");
+  for (i; i < 6; i++)
+    snippet += await loadSnippet(`/cards/card-project-${i}.html`, true);
+  snippet += getTopicSnippet("/AI Research");
+  snippet += await loadSnippet(`/cards/card-project-${i}.html`, true);
+  showcase.innerHTML = snippet;
 
   Array.from(showcase.querySelectorAll(".slide-wrapper")).forEach((wrapper) => {
     const img = wrapper.querySelector("img");
@@ -68,8 +64,13 @@ const loadProjects = async () => {
 };
 
 const showJournal = async (id) => {
+  localStorage.setItem("page", `0;${id}`);
   selectTab(0);
-  await loadSnippet(`journals/journal-project-${id}.html`, false);
+  showcase.innerHTML = "";
+  showcase.innerHTML = await loadSnippet(
+    `/journals/journal-project-${id}.html`,
+    false
+  );
   Array.from(showcase.querySelectorAll(".slide-wrapper")).forEach((wrapper) => {
     const img = wrapper.querySelector("img");
     img.addEventListener("click", (e) => {
@@ -78,13 +79,17 @@ const showJournal = async (id) => {
   });
 };
 
-const showAbout = () => {
+const showAbout = async () => {
   selectTab(1);
-  loadSnippet(`pages/about.html`, false);
+  localStorage.setItem("page", 1);
+  showcase.innerHTML = "";
+  showcase.innerHTML = await loadSnippet(`/pages/about.html`, false);
 };
-const showContact = () => {
+const showContact = async () => {
   selectTab(2);
-  loadSnippet(`pages/contact.html`, false);
+  localStorage.setItem("page", 2);
+  showcase.innerHTML = "";
+  showcase.innerHTML = await loadSnippet(`/pages/contact.html`, false);
 };
 
 const clearForm = () => {
@@ -96,6 +101,32 @@ const clearForm = () => {
 const selectTab = (idx) => {
   tabs.forEach((tab) => tab.removeAttribute("selected"));
   tabs[idx].setAttribute("selected", null);
+};
+
+const loadLastPage = () => {
+  const pageId = localStorage.getItem("page") || -1;
+  if (pageId == -1) loadProjects();
+  else if (pageId.length === 1) {
+    const id = parseInt(pageId);
+    switch (id) {
+      case 0:
+        loadProjects();
+        break;
+      case 1:
+        showAbout();
+        break;
+      case 2:
+        showContact();
+        break;
+    }
+  } else {
+    try {
+      const projectId = parseInt(pageId.split(";")[1]);
+      showJournal(projectId);
+    } catch {
+      loadProjects();
+    }
+  }
 };
 
 document.addEventListener("keydown", (e) => {
@@ -121,4 +152,4 @@ tab = document.querySelector("#contact-btn");
 tab.addEventListener("click", showContact);
 tabs.push(tab);
 
-loadProjects();
+loadLastPage();
