@@ -1,0 +1,50 @@
+<article class="card contact">
+  <span class="details">
+    <h3>Get in touch</h3>
+    <p>
+      Have a question, collaboration idea, or just want to say hi?<br />
+      Feel free to reach out &mdash; I&apos;m always open to connecting and
+      exploring new opportunities.
+    </p>
+    <form
+      action="https://formsubmit.co/a3bf1b7f1d406c727df9ef16381ae1c2"
+      method="post"
+    >
+      <div class="alias">
+        <input type="text" name="name" id="name" placeholder="Name" required />
+        <input
+          type="email"
+          name="email"
+          id="email"
+          placeholder="Email"
+          required
+        />
+      </div>
+      <input
+        type="text"
+        name="_subject"
+        id="subject"
+        placeholder="Subject"
+        required
+      />
+      <textarea
+        name="message"
+        id="message"
+        rows="8"
+        required
+        placeholder="Message"
+        minlength="20"
+      ></textarea>
+      <div class="bottom">
+        <input type="submit" value="Send" />
+        <input
+          type="button"
+          name="reset"
+          id="reset"
+          value="Reset Form"
+          onclick="clearForm()"
+        />
+      </div>
+    </form>
+  </span>
+</article>

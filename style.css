@@ -1,0 +1,349 @@
+@import url("https://fonts.googleapis.com/css?family=Mada:700|Mada:400");
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --bg-950: hsl(0, 0%, 95%);
+  --bg-850: hsl(0, 0%, 85%);
+  --bg-750: hsl(0, 0%, 75%);
+  --bg-650: hsl(0, 0%, 65%);
+  --bg-50: hsl(0, 0%, 5%);
+  --bg-150: hsl(0, 0%, 15%);
+  --bg-250: hsl(0, 0%, 25%);
+
+  --text-950: hsl(0, 0%, 95%);
+  --text-850: hsl(0, 0%, 85%);
+  --text-50: hsl(0, 0%, 5%);
+  --text-150: hsl(0, 0%, 15%);
+  --text-400: hsl(0, 0%, 40%);
+  --text-500: hsl(0, 0%, 50%);
+  --text-600: hsl(0, 0%, 60%);
+
+  --accent-600: hsl(239, 75%, 60%);
+  --accent-650: hsl(239, 80%, 65%);
+  --accent-700: hsl(239, 80%, 70%);
+
+  --bg-gradient-dark: linear-gradient(var(--bg-150), 10%, var(--bg-50));
+  --bg-gradient-light: linear-gradient(white, 10%, var(--bg-950));
+}
+
+body {
+  font-family: "Mada";
+  font-weight: 400;
+  width: 100svw;
+  height: 100svh;
+  background-color: var(--bg-850);
+  display: flex;
+  flex-direction: row;
+  color: var(--text-50);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-family: "Mada";
+  font-weight: 700;
+}
+
+html {
+  font-size: 100%;
+  font-size: 18px;
+} /* 16px */
+
+h1 {
+  font-size: 4.21rem;
+}
+
+h2 {
+  font-size: 3.158rem;
+}
+
+h3 {
+  font-size: 2.369rem;
+}
+
+h4 {
+  font-size: 1.777rem;
+}
+
+h5 {
+  font-size: 1.333rem;
+}
+
+small {
+  font-size: 0.75rem;
+}
+
+nav {
+  padding: 3rem;
+  background-color: var(--bg-50);
+  width: 400px;
+  color: var(--text-850);
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  box-shadow: 0.25rem 0px 10px rgba(0, 0, 0, 0.4);
+  background: var(--bg-gradient-dark);
+  position: relative;
+}
+
+nav > .owner {
+  color: var(--text-950);
+  display: flex;
+  flex-direction: column;
+  text-transform: uppercase;
+}
+
+nav > .owner > h3:last-of-type {
+  color: var(--text-50);
+  text-shadow: -1px -1px 0 var(--text-850), 0 -1px 0 var(--text-850),
+    1px -1px 0 var(--text-850), 1px 0 0 var(--text-850),
+    1px 1px 0 var(--text-850), 0 1px 0 var(--text-850),
+    -1px 1px 0 var(--text-850), -1px 0 0 var(--text-850);
+}
+
+nav > p {
+  text-align: justify;
+}
+
+nav > hr {
+  max-width: 6rem;
+  border-color: var(--text-950);
+}
+
+nav > ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+nav li {
+  color: var(--text-950);
+  text-transform: uppercase;
+  font-weight: 600;
+  cursor: pointer;
+  position: relative;
+  width: fit-content;
+}
+
+nav li:not([selected]):hover {
+  color: white;
+  text-decoration: underline;
+}
+
+nav li[selected] p {
+  text-indent: 1rem;
+}
+
+nav li[selected] p::before {
+  content: "";
+  background-color: var(--text-950);
+  top: 0;
+  bottom: 0;
+  width: 5px;
+  left: 0;
+  position: absolute;
+}
+
+nav .media {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  fill: var(--text-950);
+}
+
+.github,
+.linked-in {
+  fill: inherit;
+}
+
+main {
+  flex: 1;
+  overflow-y: auto;
+  scroll-behavior: smooth;
+  height: 100svh;
+  position: relative;
+}
+
+footer {
+  text-transform: uppercase;
+  color: var(--text-400);
+  text-align: center;
+  animation: fly-left 0.5s;
+  position: absolute;
+  left: 3rem;
+  right: 3rem;
+  bottom: 1rem;
+  width: auto;
+}
+
+footer::after {
+  font-weight: 600;
+  content: "Designed by Benedek Mészáros";
+}
+
+#showcase {
+  padding: 3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+
+#image-preview {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.9);
+  z-index: 999;
+  overflow-x: scroll;
+  justify-content: center;
+  align-items: center;
+  display: none;
+  animation: fade-in 0.25s;
+}
+
+#image-preview img {
+  max-height: 75%;
+  max-width: 90%;
+  box-shadow: 0.25rem 0.25rem 10px rgba(0, 0, 0, 0.4);
+  border: solid 1px var(--bg-750);
+  border-radius: 0.5rem;
+  object-fit: cover;
+  animation: fly-up 0.25s;
+}
+
+.topic {
+  text-transform: uppercase;
+  background-color: var(--bg-50);
+  color: var(--bg-950);
+  /* border-radius: 0.5rem; */
+  padding: 0.5rem 2rem;
+  border: none;
+  box-shadow: 0.25rem 0.25rem 10px rgba(0, 0, 0, 0.4);
+  margin-bottom: -1.5rem;
+  animation: fly-left 0.5s;
+  background: var(--bg-gradient-dark);
+  border: solid 1px var(--bg-250);
+}
+
+@keyframes fly-left {
+  0% {
+    opacity: 0%;
+    transform: translateX(10%);
+  }
+  100% {
+    opacity: 100%;
+    transform: translateY(0%);
+  }
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0%;
+  }
+  100% {
+    opacity: 100%;
+  }
+}
+
+@media (max-width: 1200px) {
+  body {
+    flex-direction: column;
+    overflow-y: auto;
+  }
+
+  nav {
+    padding: 3rem;
+    width: 100%;
+    box-shadow: 0rem 0.25rem 10px rgba(0, 0, 0, 0.4);
+  }
+
+  main {
+    overflow-y: visible;
+  }
+
+  nav > ul {
+    flex-direction: row;
+    justify-content: center;
+    gap: 1rem;
+  }
+
+  nav li[selected] p {
+    text-indent: 0rem;
+  }
+
+  nav li[selected] p::before {
+    content: "";
+    height: 3px;
+    right: 0;
+    width: 100%;
+    bottom: -3px;
+    top: auto;
+    left: 0;
+    position: absolute;
+  }
+
+  nav > h3 {
+    text-align: center;
+  }
+
+  nav > .owner {
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+  }
+
+  nav > hr {
+    left: 50%;
+    right: 50%;
+    transform: translateX(-50%);
+    position: relative;
+    max-width: 100%;
+  }
+
+  nav > hr:last-of-type {
+    max-width: 6rem;
+  }
+
+  nav .media {
+    justify-content: center;
+  }
+
+  footer {
+    text-align: right;
+  }
+
+  footer::after {
+    content: "DESIGN BY B. M.";
+  }
+}
+
+@media (max-width: 650px) {
+  nav > .owner > h3 {
+    font-size: 2rem;
+  }
+
+  #showcase,
+  nav {
+    padding: 1.5rem;
+  }
+
+  footer {
+    left: 1rem;
+    right: 1rem;
+  }
+
+  footer::after {
+    content: "B. M.";
+  }
+}
