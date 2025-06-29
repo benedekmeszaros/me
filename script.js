@@ -109,7 +109,7 @@ const loadLastPage = () => {
   else if (pageId.length === 1) {
     const id = parseInt(pageId);
     switch (id) {
-      case 0:
+      default:
         loadProjects();
         break;
       case 1:
