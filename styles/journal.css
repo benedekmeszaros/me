@@ -91,7 +91,6 @@
 .card.journal .featured-imgs {
   border-radius: 0.5rem;
   margin: 2rem 0rem 1rem 0rem;
-  height: 450px;
 }
 
 .card.journal > .details {
@@ -129,11 +128,13 @@
   color: var(--accent-600);
 }
 
-@media (max-width: 800px) {
+@media (max-width: 1400px) {
   .card.journal > .details {
-    padding: 4rem 3rem 4rem 3rem;
+    padding: 4rem 3rem 3rem 3rem;
   }
+}
 
+@media (max-width: 800px) {
   .card.journal .banner {
     height: 200px;
   }
@@ -145,17 +146,8 @@
   }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 650px) {
   .card.journal > .details {
-    padding: 4rem 2rem 4rem 2rem;
-  }
-}
-
-@media only screen and (min-width: 1200px) and (max-width: 1400px) {
-  .card.journal .featured-imgs {
-    flex-direction: column;
-  }
-  .card.journal .featured-imgs > .slide-wrapper {
-    min-height: 0;
+    padding: 4rem 1.5rem 1.5rem 1.5rem;
   }
 }
