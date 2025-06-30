@@ -39,6 +39,8 @@
 
 .card.about .hero .profile-wrapper {
   display: flex;
+  align-items: flex-end;
+  min-height: 450px;
 }
 
 .card.about .hero img {
@@ -239,16 +241,30 @@
   .card.about > .details {
     padding: 3rem;
   }
+
+  .card.about .hero .profile-wrapper {
+    min-height: 300px;
+  }
 }
 
 @media (max-width: 650px) {
+  .card.about > .details {
+    padding: 1.5rem;
+  }
+
   .card.about .profile-wrapper {
     overflow: hidden;
   }
-
   .card.about .hero img {
     max-width: inherit;
     height: 300px;
     object-position: center;
+  }
+
+  .card.about .skills > ul li {
+    padding: 1rem;
+  }
+  .card.about .skills > ul li p {
+    line-height: 1.25rem;
   }
 }
