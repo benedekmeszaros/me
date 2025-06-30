@@ -70,16 +70,22 @@
   }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 650px) {
+  .card.contact > .details {
+    padding: 1.5rem;
+  }
+
+  .card.contact form,
+  .card.contact form .alias {
+    gap: 1rem;
+  }
+
   .card.contact form .bottom {
     flex-direction: column;
+    gap: 0.5rem;
   }
 
   .card.contact form .bottom input {
     width: 100%;
-  }
-
-  .card.contact > .details {
-    padding: 2rem;
   }
 }
