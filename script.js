@@ -87,16 +87,21 @@ const loadProjects = async () => {
   const temp = document.createElement("div");
   temp.innerHTML = snippet;
   await Promise.all(
-    Array.from(temp.querySelectorAll("img")).map((img) => {
-      img.addEventListener("click", (e) => {
-        showImagePreview(img.getAttribute("src"));
-      });
-      if (img.complete) return Promise.resolve();
-      return new Promise((resolve, reject) => {
-        img.onload = resolve;
-        img.onerror = reject;
-      });
-    })
+    Array.from(temp.querySelectorAll("img"))
+      .filter((img) => {
+        const src = img.getAttribute("src") || "";
+        return !src.toLowerCase().endsWith(".gif");
+      })
+      .map((img) => {
+        img.addEventListener("click", (e) => {
+          showImagePreview(img.getAttribute("src"));
+        });
+        if (img.complete) return Promise.resolve();
+        return new Promise((resolve, reject) => {
+          img.onload = resolve;
+          img.onerror = reject;
+        });
+      })
   );
   showcase.innerHTML = temp.innerHTML;
 
@@ -115,16 +120,21 @@ const showJournal = async (id) => {
   const temp = document.createElement("div");
   temp.innerHTML = await loadSnippet(`/journals/journal-project-${id}.html`);
   await Promise.all(
-    Array.from(temp.querySelectorAll("img")).map((img) => {
-      img.addEventListener("click", (e) => {
-        showImagePreview(img.getAttribute("src"));
-      });
-      if (img.complete) return Promise.resolve();
-      return new Promise((resolve, reject) => {
-        img.onload = resolve;
-        img.onerror = reject;
-      });
-    })
+    Array.from(temp.querySelectorAll("img"))
+      .filter((img) => {
+        const src = img.getAttribute("src") || "";
+        return !src.toLowerCase().endsWith(".gif");
+      })
+      .map((img) => {
+        img.addEventListener("click", (e) => {
+          showImagePreview(img.getAttribute("src"));
+        });
+        if (img.complete) return Promise.resolve();
+        return new Promise((resolve, reject) => {
+          img.onload = resolve;
+          img.onerror = reject;
+        });
+      })
   );
   showcase.innerHTML = temp.innerHTML;
   Array.from(showcase.querySelectorAll(".slide-wrapper")).forEach((wrapper) => {
