@@ -1,5 +1,4 @@
 .card.card.journal hr {
-  /* max-width: 6rem; */
   border-color: var(--bg-850);
 }
 
@@ -94,7 +93,7 @@
 }
 
 .card.journal > .details {
-  padding: 4rem 6rem 4rem 6rem;
+  padding: 2rem 6rem 2rem 2rem;
   gap: 2rem;
 }
 
@@ -130,11 +129,11 @@
 
 @media (max-width: 1400px) {
   .card.journal > .details {
-    padding: 4rem 3rem 3rem 3rem;
+    padding: 4rem 2rem 2rem 2rem;
   }
 }
 
-@media (max-width: 800px) {
+@media (max-width: 850px) {
   .card.journal .banner {
     height: 200px;
   }
@@ -149,5 +148,9 @@
 @media (max-width: 650px) {
   .card.journal > .details {
     padding: 4rem 1.5rem 1.5rem 1.5rem;
+  }
+
+  #back-btn {
+    margin-top: 0;
   }
 }

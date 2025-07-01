@@ -17,6 +17,7 @@
 
   --text-950: hsl(0, 0%, 95%);
   --text-850: hsl(0, 0%, 85%);
+  --text-750: hsl(0, 0%, 75%);
   --text-50: hsl(0, 0%, 5%);
   --text-150: hsl(0, 0%, 15%);
   --text-400: hsl(0, 0%, 40%);
@@ -225,8 +226,8 @@ footer::after {
   text-transform: uppercase;
   background-color: var(--bg-50);
   color: var(--bg-950);
-  /* border-radius: 0.5rem; */
-  padding: 0.5rem 2rem;
+  line-height: 1em;
+  padding: 0.5em 2rem;
   border: none;
   box-shadow: 0.25rem 0.25rem 10px rgba(0, 0, 0, 0.4);
   margin-bottom: -1.5rem;
@@ -262,7 +263,6 @@ footer::after {
   }
 
   nav {
-    padding: 3rem;
     width: 100%;
     box-shadow: 0rem 0.25rem 10px rgba(0, 0, 0, 0.4);
   }
@@ -272,24 +272,36 @@ footer::after {
   }
 
   nav > ul {
+    width: 100%;
     flex-direction: row;
     justify-content: center;
-    gap: 1rem;
+    align-items: center;
+    /* gap: 1rem; */
+  }
+
+  nav li p {
+    padding: 0.25em 1em;
+  }
+
+  nav li {
+    border: solid 1px transparent;
+    transition: border-color 0.15s;
+  }
+
+  nav li:not([selected]):hover {
+    text-decoration: none;
+    border-color: var(--bg-950);
   }
 
   nav li[selected] p {
     text-indent: 0rem;
+    background-color: var(--bg-850);
+    color: var(--text-50);
+    transition: all 0.15s;
   }
 
   nav li[selected] p::before {
-    content: "";
-    height: 3px;
-    right: 0;
-    width: 100%;
-    bottom: -3px;
-    top: auto;
-    left: 0;
-    position: absolute;
+    display: none;
   }
 
   nav > h3 {
@@ -336,14 +348,22 @@ footer::after {
   #showcase,
   nav {
     padding: 1.5rem;
+    gap: 1.5rem;
   }
 
   footer {
-    left: 1rem;
-    right: 1rem;
+    left: 1.5rem;
+    right: 1.5rem;
   }
 
   footer::after {
     content: "B. M.";
+  }
+
+  .topic {
+    padding: 0.5em 1.5rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-bottom: 0;
   }
 }

@@ -1,3 +1,33 @@
+const cardSkeleton = `
+<article class="card loader">
+  <span class="featured-imgs"></span>
+  <span class="details">
+   <span class="categories">
+      <div class="skeleton-category"></div>
+      <div class="skeleton-category"></div>
+    </span>
+    <div class="skeleton-heading"></div>
+    <div class="skeleton-text"></div>
+    <div class="skeleton-text"></div>
+    <div class="skeleton-text"></div>
+  </span>
+</article>
+`;
+const aboutSkeleton = `
+<article class="card about loader">
+  <span class="details">
+    <div class="skeleton-heading"></div>
+    <div class="skeleton-text"></div>
+    <div class="skeleton-text"></div>
+    <div></div>
+    <div class="skeleton-text"></div>
+    <div class="skeleton-text"></div>
+    <div class="skeleton-text"></div>
+    <div class="skeleton-text"></div>
+    </span>
+    <div style="height: 150px"></div>
+</article>
+`;
 const showcase = document.querySelector("#showcase");
 const preview = document.querySelector("#image-preview");
 const main = showcase.parentNode;
@@ -20,7 +50,7 @@ const showImagePreview = (src) => {
   const img = preview.querySelector("img");
   img.style.visibility = "hidden";
   img.setAttribute("src", src);
-  img.onload = (_) => {
+  img.onload = () => {
     img.style.visibility = "visible";
   };
   preview.style.display = "flex";
@@ -41,23 +71,38 @@ const cloaseImagePreview = () => {
 
 const loadProjects = async () => {
   localStorage.setItem("page", 0);
-  showcase.innerHTML = "";
+  showcase.innerHTML = cardSkeleton;
   let snippet = "";
   selectTab(0);
   snippet += getTopicSnippet("/Unity Projects");
   let i = 1;
   for (i; i < 4; i++)
-    snippet += await loadSnippet(`/cards/card-project-${i}.html`, true);
+    snippet += await loadSnippet(`/cards/card-project-${i}.html`);
   snippet += getTopicSnippet("/Full-Stack Projects");
   for (i; i < 6; i++)
-    snippet += await loadSnippet(`/cards/card-project-${i}.html`, true);
+    snippet += await loadSnippet(`/cards/card-project-${i}.html`);
   snippet += getTopicSnippet("/AI Research");
-  snippet += await loadSnippet(`/cards/card-project-${i}.html`, true);
-  showcase.innerHTML = snippet;
+  snippet += await loadSnippet(`/cards/card-project-${i}.html`);
+
+  const temp = document.createElement("div");
+  temp.innerHTML = snippet;
+  await Promise.all(
+    Array.from(temp.querySelectorAll("img")).map((img) => {
+      img.addEventListener("click", (e) => {
+        showImagePreview(img.getAttribute("src"));
+      });
+      if (img.complete) return Promise.resolve();
+      return new Promise((resolve, reject) => {
+        img.onload = resolve;
+        img.onerror = reject;
+      });
+    })
+  );
+  showcase.innerHTML = temp.innerHTML;
 
   Array.from(showcase.querySelectorAll(".slide-wrapper")).forEach((wrapper) => {
     const img = wrapper.querySelector("img");
-    img.addEventListener("click", (e) => {
+    img.addEventListener("click", () => {
       showImagePreview(img.getAttribute("src"));
     });
   });
@@ -66,11 +111,22 @@ const loadProjects = async () => {
 const showJournal = async (id) => {
   localStorage.setItem("page", `0;${id}`);
   selectTab(0);
-  showcase.innerHTML = "";
-  showcase.innerHTML = await loadSnippet(
-    `/journals/journal-project-${id}.html`,
-    false
+  showcase.innerHTML = cardSkeleton;
+  const temp = document.createElement("div");
+  temp.innerHTML = await loadSnippet(`/journals/journal-project-${id}.html`);
+  await Promise.all(
+    Array.from(temp.querySelectorAll("img")).map((img) => {
+      img.addEventListener("click", (e) => {
+        showImagePreview(img.getAttribute("src"));
+      });
+      if (img.complete) return Promise.resolve();
+      return new Promise((resolve, reject) => {
+        img.onload = resolve;
+        img.onerror = reject;
+      });
+    })
   );
+  showcase.innerHTML = temp.innerHTML;
   Array.from(showcase.querySelectorAll(".slide-wrapper")).forEach((wrapper) => {
     const img = wrapper.querySelector("img");
     img.addEventListener("click", (e) => {
@@ -82,14 +138,28 @@ const showJournal = async (id) => {
 const showAbout = async () => {
   selectTab(1);
   localStorage.setItem("page", 1);
-  showcase.innerHTML = "";
-  showcase.innerHTML = await loadSnippet(`/pages/about.html`, false);
+  showcase.innerHTML = aboutSkeleton;
+  const temp = document.createElement("div");
+  temp.innerHTML = await loadSnippet(`/pages/about.html`);
+  await Promise.all(
+    Array.from(temp.querySelectorAll("img")).map((img) => {
+      img.addEventListener("click", (e) => {
+        showImagePreview(img.getAttribute("src"));
+      });
+      if (img.complete) return Promise.resolve();
+      return new Promise((resolve, reject) => {
+        img.onload = resolve;
+        img.onerror = reject;
+      });
+    })
+  );
+  showcase.innerHTML = temp.innerHTML;
 };
 const showContact = async () => {
   selectTab(2);
   localStorage.setItem("page", 2);
   showcase.innerHTML = "";
-  showcase.innerHTML = await loadSnippet(`/pages/contact.html`, false);
+  showcase.innerHTML = await loadSnippet(`/pages/contact.html`);
 };
 
 const clearForm = () => {
