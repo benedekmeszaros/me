@@ -91,7 +91,6 @@
   display: flex;
   flex-direction: column;
   box-shadow: 0.25rem 0.25rem 10px rgba(0, 0, 0, 0.2);
-  /* animation: fly-up 0.5s; */
   border: solid 1px var(--bg-750);
   border-top: solid 1px var(--bg-850);
   border-bottom: solid 1px var(--bg-650);
@@ -156,9 +155,7 @@
 }
 
 .card.loader .slider-wrapper {
-  height: 300px;
-  background-color: var(--text-600);
-  position: relative;
+  box-shadow: none;
 }
 
 .card.loader .skeleton-category {
@@ -173,6 +170,10 @@
   width: 75%;
   height: 2.5rem;
   background-color: var(--text-750);
+}
+
+.card.loader .slider-wrapper {
+
 }
 
 .card.loader .skeleton-text {
