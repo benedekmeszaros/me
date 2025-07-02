@@ -5,6 +5,7 @@ const assignSliderObservers = () => {
     const slider = wrapper.querySelector(".slider");
     const navs = wrapper.querySelectorAll(".slider-nav > a");
     const slides = slider.querySelectorAll("img");
+    slider.scrollTo({ left: 0, behavior: "instant" });
     navs[0].classList.add(className);
 
     const observer = new IntersectionObserver(

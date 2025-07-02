@@ -4,7 +4,7 @@ const topicSkeleton = `
 </h3>`;
 const cardSkeleton = `
 <article class="card loader">
-  <div class="slider-wrapper"></div>
+  <div class="skeleton-slider"></div>
   <div class="details">
    <span class="categories">
       <div class="skeleton-category"></div>

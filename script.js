@@ -2,7 +2,10 @@ const showcase = document.querySelector("#showcase");
 const preview = document.querySelector("#image-preview");
 const main = showcase.parentNode;
 const tabs = [];
+let isBussy = false;
 let globalScrollY;
+
+const getActivePage = () => localStorage.getItem("page");
 
 const loadSnippet = async (path) => {
   return fetch(path).then((res) => {
@@ -40,9 +43,12 @@ const cloaseImagePreview = () => {
 };
 
 const loadProjects = async () => {
+  if (isBussy || getActivePage() === "0") return;
+
   localStorage.setItem("page", 0);
   showcase.innerHTML += topicSkeleton;
   showcase.innerHTML += cardSkeleton;
+  isBussy = true;
   let snippet = "";
   selectTab(0);
   snippet += getTopicSnippet("/Unity Projects");
@@ -90,12 +96,16 @@ const loadProjects = async () => {
         showImagePreview(img.getAttribute("src"))
       )
     );
+  isBussy = false;
 };
 
 const showJournal = async (id) => {
-  localStorage.setItem("page", `0;${id}`);
-  selectTab(0);
+  if (isBussy) return;
+
+  isBussy = true;
   showcase.innerHTML = cardSkeleton;
+  selectTab(0);
+  localStorage.setItem("page", `0;${id}`);
   const time = Date.now();
   const temp = document.createElement("div");
   temp.innerHTML = await loadSnippet(`/journals/journal-project-${id}.html`);
@@ -128,12 +138,16 @@ const showJournal = async (id) => {
         showImagePreview(img.getAttribute("src"))
       )
     );
+  isBussy = false;
 };
 
 const showAbout = async () => {
+  if (isBussy || getActivePage() === "1") return;
+
+  isBussy = true;
   selectTab(1);
-  localStorage.setItem("page", 1);
   showcase.innerHTML = aboutSkeleton;
+  localStorage.setItem("page", 1);
   const time = Date.now();
   const temp = document.createElement("div");
   temp.innerHTML = await loadSnippet(`/pages/about.html`);
@@ -156,12 +170,16 @@ const showAbout = async () => {
     );
   else showcase.classList.add("diver");
   showcase.innerHTML = temp.innerHTML;
+  isBussy = false;
 };
 const showContact = async () => {
+  if (isBussy || getActivePage() === "2") return;
+  isBussy = true;
   selectTab(2);
-  localStorage.setItem("page", 2);
   showcase.innerHTML = "";
+  localStorage.setItem("page", 2);
   showcase.innerHTML = await loadSnippet(`/pages/contact.html`);
+  isBussy = false;
 };
 
 const clearForm = () => {
@@ -178,6 +196,7 @@ const selectTab = (idx) => {
 
 const loadLastPage = () => {
   const pageId = localStorage.getItem("page") || -1;
+  localStorage.removeItem("page");
   if (pageId == -1) loadProjects();
   else if (pageId.length === 1) {
     const id = parseInt(pageId);

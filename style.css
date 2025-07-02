@@ -166,6 +166,11 @@ nav .media {
   fill: inherit;
 }
 
+.github:hover,
+.linked-in:hover {
+  filter: drop-shadow(0px 0px 5px rgba(256, 256, 256, 0.4));
+}
+
 main {
   flex: 1;
   overflow-y: auto;
@@ -299,7 +304,7 @@ footer::after {
 
   nav li[selected] p {
     text-indent: 0rem;
-    background-color: var(--bg-850);
+    background-color: var(--bg-950);
     color: var(--text-50);
     transition: all 0.15s;
   }
@@ -347,6 +352,7 @@ footer::after {
 @media (max-width: 650px) {
   html {
     font-size: 16px;
+    overflow-anchor: none;
   }
 
   nav > .owner > h3 {
