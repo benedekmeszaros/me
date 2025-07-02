@@ -46,7 +46,7 @@ const loadProjects = async () => {
   if (isBussy || getActivePage() === "0") return;
 
   localStorage.setItem("page", 0);
-  showcase.innerHTML += topicSkeleton;
+  showcase.innerHTML = topicSkeleton;
   showcase.innerHTML += cardSkeleton;
   isBussy = true;
   let snippet = "";
