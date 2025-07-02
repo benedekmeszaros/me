@@ -248,7 +248,7 @@
 @media (max-width: 1200px) {
   .slider {
     aspect-ratio: 2;
-    overflow-x: auto;
+    overflow-x: scroll;
   }
 }
 
