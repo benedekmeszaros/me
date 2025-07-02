@@ -172,8 +172,8 @@
   background-color: var(--text-750);
 }
 
-.card.loader .slider-wrapper {
-
+.card.loader .slider-wrapper::after {
+  box-shadow: none;
 }
 
 .card.loader .skeleton-text {
