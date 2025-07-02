@@ -55,6 +55,7 @@ h5 {
 html {
   font-size: 100%;
   font-size: 18px;
+  scroll-behavior: smooth;
 } /* 16px */
 
 h1 {
@@ -231,9 +232,12 @@ footer::after {
   border: none;
   box-shadow: 0.25rem 0.25rem 10px rgba(0, 0, 0, 0.4);
   margin-bottom: -1.5rem;
-  animation: fly-left 0.5s;
   background: var(--bg-gradient-dark);
   border: solid 1px var(--bg-250);
+}
+
+.diver {
+  animation: fly-up 0.5s;
 }
 
 @keyframes fly-left {
@@ -243,7 +247,7 @@ footer::after {
   }
   100% {
     opacity: 100%;
-    transform: translateY(0%);
+    transform: translateY(0);
   }
 }
 
@@ -341,6 +345,10 @@ footer::after {
 }
 
 @media (max-width: 650px) {
+  html {
+    font-size: 16px;
+  }
+
   nav > .owner > h3 {
     font-size: 2rem;
   }

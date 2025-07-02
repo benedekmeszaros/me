@@ -1,33 +1,3 @@
-const cardSkeleton = `
-<article class="card loader">
-  <span class="featured-imgs"></span>
-  <span class="details">
-   <span class="categories">
-      <div class="skeleton-category"></div>
-      <div class="skeleton-category"></div>
-    </span>
-    <div class="skeleton-heading"></div>
-    <div class="skeleton-text"></div>
-    <div class="skeleton-text"></div>
-    <div class="skeleton-text"></div>
-  </span>
-</article>
-`;
-const aboutSkeleton = `
-<article class="card about loader">
-  <span class="details">
-    <div class="skeleton-heading"></div>
-    <div class="skeleton-text"></div>
-    <div class="skeleton-text"></div>
-    <div></div>
-    <div class="skeleton-text"></div>
-    <div class="skeleton-text"></div>
-    <div class="skeleton-text"></div>
-    <div class="skeleton-text"></div>
-    </span>
-    <div style="height: 150px"></div>
-</article>
-`;
 const showcase = document.querySelector("#showcase");
 const preview = document.querySelector("#image-preview");
 const main = showcase.parentNode;
@@ -66,12 +36,13 @@ const cloaseImagePreview = () => {
   document.body.style.position = "";
   document.body.style.overflow = "";
   document.body.style.top = "";
-  window.scrollTo(0, globalScrollY);
+  window.scrollTo({ top: globalScrollY, behavior: "instant" });
 };
 
 const loadProjects = async () => {
   localStorage.setItem("page", 0);
-  showcase.innerHTML = cardSkeleton;
+  showcase.innerHTML += topicSkeleton;
+  showcase.innerHTML += cardSkeleton;
   let snippet = "";
   selectTab(0);
   snippet += getTopicSnippet("/Unity Projects");
@@ -84,6 +55,7 @@ const loadProjects = async () => {
   snippet += getTopicSnippet("/AI Research");
   snippet += await loadSnippet(`/cards/card-project-${i}.html`);
 
+  const time = Date.now();
   const temp = document.createElement("div");
   temp.innerHTML = snippet;
   await Promise.all(
@@ -103,20 +75,28 @@ const loadProjects = async () => {
         });
       })
   );
+  const timeOffset = Date.now() - time;
+  if (timeOffset < skeletonThreshold.max && timeOffset > skeletonThreshold.min)
+    await new Promise((resolve) =>
+      setTimeout(resolve, skeletonThreshold.max - timeOffset)
+    );
+  else showcase.classList.add("diver");
   showcase.innerHTML = temp.innerHTML;
-
-  Array.from(showcase.querySelectorAll(".slide-wrapper")).forEach((wrapper) => {
-    const img = wrapper.querySelector("img");
-    img.addEventListener("click", () => {
-      showImagePreview(img.getAttribute("src"));
-    });
-  });
+  assignSliderObservers();
+  showcase
+    .querySelectorAll(".slider > img")
+    .forEach((img) =>
+      img.addEventListener("click", () =>
+        showImagePreview(img.getAttribute("src"))
+      )
+    );
 };
 
 const showJournal = async (id) => {
   localStorage.setItem("page", `0;${id}`);
   selectTab(0);
   showcase.innerHTML = cardSkeleton;
+  const time = Date.now();
   const temp = document.createElement("div");
   temp.innerHTML = await loadSnippet(`/journals/journal-project-${id}.html`);
   await Promise.all(
@@ -126,9 +106,6 @@ const showJournal = async (id) => {
         return !src.toLowerCase().endsWith(".gif");
       })
       .map((img) => {
-        img.addEventListener("click", (e) => {
-          showImagePreview(img.getAttribute("src"));
-        });
         if (img.complete) return Promise.resolve();
         return new Promise((resolve, reject) => {
           img.onload = resolve;
@@ -136,19 +113,28 @@ const showJournal = async (id) => {
         });
       })
   );
+  const timeOffset = Date.now() - time;
+  if (timeOffset < skeletonThreshold.max && timeOffset > skeletonThreshold.min)
+    await new Promise((resolve) =>
+      setTimeout(resolve, skeletonThreshold.max - timeOffset)
+    );
+  else showcase.classList.add("diver");
   showcase.innerHTML = temp.innerHTML;
-  Array.from(showcase.querySelectorAll(".slide-wrapper")).forEach((wrapper) => {
-    const img = wrapper.querySelector("img");
-    img.addEventListener("click", (e) => {
-      showImagePreview(img.getAttribute("src"));
-    });
-  });
+  assignSliderObservers();
+  showcase
+    .querySelectorAll(".slider > img")
+    .forEach((img) =>
+      img.addEventListener("click", () =>
+        showImagePreview(img.getAttribute("src"))
+      )
+    );
 };
 
 const showAbout = async () => {
   selectTab(1);
   localStorage.setItem("page", 1);
   showcase.innerHTML = aboutSkeleton;
+  const time = Date.now();
   const temp = document.createElement("div");
   temp.innerHTML = await loadSnippet(`/pages/about.html`);
   await Promise.all(
@@ -163,6 +149,12 @@ const showAbout = async () => {
       });
     })
   );
+  const timeOffset = Date.now() - time;
+  if (timeOffset < skeletonThreshold.max && timeOffset > skeletonThreshold.min)
+    await new Promise((resolve) =>
+      setTimeout(resolve, skeletonThreshold.max - timeOffset)
+    );
+  else showcase.classList.add("diver");
   showcase.innerHTML = temp.innerHTML;
 };
 const showContact = async () => {
@@ -179,6 +171,7 @@ const clearForm = () => {
 };
 
 const selectTab = (idx) => {
+  showcase.classList.remove("diver");
   tabs.forEach((tab) => tab.removeAttribute("selected"));
   tabs[idx].setAttribute("selected", null);
 };

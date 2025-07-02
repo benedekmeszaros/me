@@ -1,13 +1,36 @@
 <article class="card">
-  <span class="featured-imgs">
-    <div class="slide-wrapper">
-      <img src="images/project-6/featured-image-1.png" alt="Screen Shot" />
+  <div class="slider-wrapper">
+    <div class="slider">
+      <img src="images/project-6/featured-image-1.png" id="c6-s1" />
+      <img src="images/project-6/featured-image-2.png" id="c6-s2" />
     </div>
-    <div class="slide-wrapper">
-      <img src="images/project-6/featured-image-2.png" alt="Screen Shot" />
+    <div class="slider-nav">
+      <a href="#c6-s1"></a>
+      <a href="#c6-s2"></a>
     </div>
-  </span>
-  <span class="details">
+    <div class="expand-hint">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="36"
+        height="36"
+        viewBox="0 0 20 20"
+        class="expand-icon"
+      >
+        <g fill="currentColor">
+          <path
+            d="M5.707 15.707a1 1 0 0 1-1.414-1.414l4-4a1 1 0 1 1 1.414 1.414l-4 4Z"
+          />
+          <path d="M5 16a1 1 0 1 1 0-2h4a1 1 0 1 1 0 2H5Z" />
+          <path
+            d="M6 15a1 1 0 1 1-2 0v-4a1 1 0 1 1 2 0v4Zm5.707-5.293a1 1 0 0 1-1.414-1.414l4-4a1 1 0 1 1 1.414 1.414l-4 4Z"
+          />
+          <path d="M16 9a1 1 0 1 1-2 0V5a1 1 0 1 1 2 0v4Z" />
+          <path d="M11 6a1 1 0 1 1 0-2h4a1 1 0 1 1 0 2h-4Z" />
+        </g>
+      </svg>
+    </div>
+  </div>
+  <div class="details">
     <span class="categories">
       <a href="https://pytorch.org/" target="_blank">PyTorch</a>
       <a href="https://android.com/" target="_blank">Android</a>
@@ -23,5 +46,5 @@
       <p class="date">Under development</p>
       <button onclick="showJournal(6)">See More</button>
     </div>
-  </span>
+  </div>
 </article>

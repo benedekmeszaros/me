@@ -5,7 +5,7 @@
   <div class="app-icon">
     <img src="images/project-3/app-icon.png" alt="Contrast Icon" />
   </div>
-  <span class="details">
+  <div class="details">
     <span class="categories">
       <a href="https://unity.com/" target="_blank">Unity</a>
       <a href="https://android.com/" target="_blank">Android</a>
@@ -26,20 +26,41 @@
         progression with real-time tactical decisions.
       </p>
 
-      <span class="featured-imgs">
-        <div class="slide-wrapper">
-          <img src="images/project-3/featured-image-1.png" alt="Gameplay" />
+      <div class="slider-wrapper">
+        <div class="slider">
+          <img src="images/project-3/banner.png" id="c3-s1" />
+          <img src="images/project-3/featured-image-1.png" id="c3-s2" />
+          <img src="images/project-3/featured-image-2.png" id="c3-s3" />
+          <img src="images/project-3/featured-image-3.png" id="c3-s4" />
         </div>
-        <div class="slide-wrapper">
-          <img src="images/project-3/featured-image-2.png" alt="Gameplay" />
+        <div class="slider-nav">
+          <a href="#c3-s1"></a>
+          <a href="#c3-s2"></a>
+          <a href="#c3-s3"></a>
+          <a href="#c3-s4"></a>
         </div>
-        <div class="slide-wrapper">
-          <img src="images/project-3/featured-image-3.png" alt="Gameplay" />
+        <div class="expand-hint">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="36"
+            height="36"
+            viewBox="0 0 20 20"
+            class="expand-icon"
+          >
+            <g fill="currentColor">
+              <path
+                d="M5.707 15.707a1 1 0 0 1-1.414-1.414l4-4a1 1 0 1 1 1.414 1.414l-4 4Z"
+              />
+              <path d="M5 16a1 1 0 1 1 0-2h4a1 1 0 1 1 0 2H5Z" />
+              <path
+                d="M6 15a1 1 0 1 1-2 0v-4a1 1 0 1 1 2 0v4Zm5.707-5.293a1 1 0 0 1-1.414-1.414l4-4a1 1 0 1 1 1.414 1.414l-4 4Z"
+              />
+              <path d="M16 9a1 1 0 1 1-2 0V5a1 1 0 1 1 2 0v4Z" />
+              <path d="M11 6a1 1 0 1 1 0-2h4a1 1 0 1 1 0 2h-4Z" />
+            </g>
+          </svg>
         </div>
-        <div class="slide-wrapper">
-          <img src="images/project-3/featured-image-4.png" alt="Gameplay" />
-        </div>
-      </span>
+      </div>
     </div>
     <hr />
     <div class="sub-section">
@@ -92,7 +113,7 @@
         its full potential.
       </p>
     </div>
-  </span>
+  </div>
 </article>
 
 <button id="back-btn" onclick="loadProjects()">

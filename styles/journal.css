@@ -87,8 +87,9 @@
   object-fit: cover;
 }
 
-.card.journal .featured-imgs {
+.card.journal .slider-wrapper {
   border-radius: 0.5rem;
+  overflow: hidden;
   margin: 2rem 0rem 1rem 0rem;
 }
 
