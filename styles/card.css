@@ -17,7 +17,7 @@
 .slider {
   display: flex;
   aspect-ratio: 2.5;
-  overflow-x: scroll;
+  overflow-x: hidden;
   scroll-snap-type: x mandatory;
   scroll-behavior: smooth;
   -webkit-overflow-scrolling: touch;
