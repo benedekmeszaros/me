@@ -35,34 +35,50 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  column-gap: 1rem;
+  column-gap: 0rem;
   position: absolute;
   bottom: 0;
   left: 0;
   right: 0;
   height: 3rem;
   z-index: 1;
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.4), transparent);
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.2), transparent);
 }
 
 .slider-nav a {
-  width: 0.75rem;
-  height: 0.75rem;
-  border-radius: 50%;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.6);
-  background-color: var(--text-750);
+  width: 2rem;
+  height: 2rem;
   transition: all 0.15s;
-  border: solid 1px var(--bg-250);
+  position: relative;
+  transition: width 0.15s;
 }
 
-.slider-nav a:hover {
+.slider-nav a::after {
+  content: "";
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  bottom: 0.5rem;
+  left: 0.5rem;
+  border-radius: 50%;
+  background-color: transparent;
+  border: solid 3px var(--bg-950);
+  pointer-events: none;
+  box-shadow: 0 0 3px 3px rgba(0, 0, 0, 0.4);
+}
+
+.slider-nav a:hover::after {
   background-color: var(--text-850);
 }
 
 .slider-nav a.active {
-  background-color: white;
-  width: 3rem;
+  width: 5rem;
+  cursor: default;
+}
+
+.slider-nav a.active::after {
   border-radius: 1rem;
+  background-color: var(--bg-950);
 }
 
 .slider-wrapper .expand-hint {
@@ -275,15 +291,17 @@
   }
 
   .slider-nav {
-    height: 2rem;
+    height: 3rem;
   }
 
-  .slider-nav a {
-    width: 0.5rem;
-    height: 0.5rem;
+  .slider-nav a::after {
+    top: 0.6rem;
+    right: 0.6rem;
+    bottom: 0.6rem;
+    left: 0.6rem;
   }
 
-  .slider-nav a.active {
-    width: 2rem;
+  .card.loader .skeleton-slider {
+    height: 200px;
   }
 }

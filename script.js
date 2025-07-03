@@ -1,9 +1,7 @@
 const showcase = document.querySelector("#showcase");
-const preview = document.querySelector("#image-preview");
 const main = showcase.parentNode;
 const tabs = [];
 let isBussy = false;
-let globalScrollY;
 
 const getActivePage = () => localStorage.getItem("page");
 
@@ -19,27 +17,21 @@ const getTopicSnippet = (label) => {
   return `<h3 class="topic">${label}</h3>`;
 };
 
-const showImagePreview = (src) => {
-  const img = preview.querySelector("img");
-  img.style.visibility = "hidden";
-  img.setAttribute("src", src);
-  img.onload = () => {
-    img.style.visibility = "visible";
-  };
-  preview.style.display = "flex";
-
-  globalScrollY = window.scrollY;
-  document.body.style.position = "fixed";
-  document.body.style.overflow = "scroll";
-  document.body.style.top = `-${globalScrollY}px`;
-};
-
-const cloaseImagePreview = () => {
-  preview.style.display = "none";
-  document.body.style.position = "";
-  document.body.style.overflow = "";
-  document.body.style.top = "";
-  window.scrollTo({ top: globalScrollY, behavior: "instant" });
+const waitForImagesToLoad = (container) => {
+  return Promise.all(
+    Array.from(container.querySelectorAll("img"))
+      .filter((img) => {
+        const src = img.getAttribute("src") || "";
+        return !src.toLowerCase().endsWith(".gif");
+      })
+      .map((img) => {
+        if (img.complete) return Promise.resolve();
+        return new Promise((resolve, reject) => {
+          img.onload = resolve;
+          img.onerror = reject;
+        });
+      })
+  );
 };
 
 const loadProjects = async () => {
@@ -64,23 +56,7 @@ const loadProjects = async () => {
   const time = Date.now();
   const temp = document.createElement("div");
   temp.innerHTML = snippet;
-  await Promise.all(
-    Array.from(temp.querySelectorAll("img"))
-      .filter((img) => {
-        const src = img.getAttribute("src") || "";
-        return !src.toLowerCase().endsWith(".gif");
-      })
-      .map((img) => {
-        img.addEventListener("click", (e) => {
-          showImagePreview(img.getAttribute("src"));
-        });
-        if (img.complete) return Promise.resolve();
-        return new Promise((resolve, reject) => {
-          img.onload = resolve;
-          img.onerror = reject;
-        });
-      })
-  );
+  await waitForImagesToLoad(temp);
   const timeOffset = Date.now() - time;
   if (timeOffset < skeletonThreshold.max && timeOffset > skeletonThreshold.min)
     await new Promise((resolve) =>
@@ -109,20 +85,7 @@ const showJournal = async (id) => {
   const time = Date.now();
   const temp = document.createElement("div");
   temp.innerHTML = await loadSnippet(`/journals/journal-project-${id}.html`);
-  await Promise.all(
-    Array.from(temp.querySelectorAll("img"))
-      .filter((img) => {
-        const src = img.getAttribute("src") || "";
-        return !src.toLowerCase().endsWith(".gif");
-      })
-      .map((img) => {
-        if (img.complete) return Promise.resolve();
-        return new Promise((resolve, reject) => {
-          img.onload = resolve;
-          img.onerror = reject;
-        });
-      })
-  );
+  await waitForImagesToLoad(temp);
   const timeOffset = Date.now() - time;
   if (timeOffset < skeletonThreshold.max && timeOffset > skeletonThreshold.min)
     await new Promise((resolve) =>
@@ -151,18 +114,7 @@ const showAbout = async () => {
   const time = Date.now();
   const temp = document.createElement("div");
   temp.innerHTML = await loadSnippet(`/pages/about.html`);
-  await Promise.all(
-    Array.from(temp.querySelectorAll("img")).map((img) => {
-      img.addEventListener("click", (e) => {
-        showImagePreview(img.getAttribute("src"));
-      });
-      if (img.complete) return Promise.resolve();
-      return new Promise((resolve, reject) => {
-        img.onload = resolve;
-        img.onerror = reject;
-      });
-    })
-  );
+  await waitForImagesToLoad(temp);
   const timeOffset = Date.now() - time;
   if (timeOffset < skeletonThreshold.max && timeOffset > skeletonThreshold.min)
     await new Promise((resolve) =>
@@ -220,19 +172,6 @@ const loadLastPage = () => {
     }
   }
 };
-
-document.addEventListener("keydown", (e) => {
-  if (e.key === "Escape" && preview.style.display !== "none")
-    cloaseImagePreview();
-});
-
-preview.addEventListener("click", (e) => {
-  if (
-    e.target.tagName.toLowerCase() == "section" &&
-    preview.style.display !== "none"
-  )
-    cloaseImagePreview();
-});
 
 let tab = document.querySelector("#home-btn");
 tab.addEventListener("click", loadProjects);
