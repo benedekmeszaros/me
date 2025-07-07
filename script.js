@@ -65,13 +65,14 @@ const loadProjects = async () => {
   else showcase.classList.add("diver");
   showcase.innerHTML = temp.innerHTML;
   assignSliderObservers();
-  showcase
-    .querySelectorAll(".slider > img")
-    .forEach((img) =>
-      img.addEventListener("click", () =>
-        showImagePreview(img.getAttribute("src"))
-      )
+
+  showcase.querySelectorAll(".slider").forEach((slider) => {
+    const imgs = Array.from(slider.querySelectorAll("img"));
+    const sources = imgs.map((img) => img.src);
+    imgs.forEach((img, idx) =>
+      img.addEventListener("click", () => showPreviewSlider(sources, idx))
     );
+  });
   isBussy = false;
 };
 
@@ -94,13 +95,13 @@ const showJournal = async (id) => {
   else showcase.classList.add("diver");
   showcase.innerHTML = temp.innerHTML;
   assignSliderObservers();
-  showcase
-    .querySelectorAll(".slider > img")
-    .forEach((img) =>
-      img.addEventListener("click", () =>
-        showImagePreview(img.getAttribute("src"))
-      )
+  showcase.querySelectorAll(".slider").forEach((slider) => {
+    const imgs = Array.from(slider.querySelectorAll("img"));
+    const sources = imgs.map((img) => img.src);
+    imgs.forEach((img, idx) =>
+      img.addEventListener("click", () => showPreviewSlider(sources, idx))
     );
+  });
   isBussy = false;
 };
 

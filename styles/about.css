@@ -144,7 +144,7 @@
   height: 101%;
   width: 101%;
   content: "";
-  transform: translateX(-100%);
+  transform: translateY(100%);
   transition: transform ease 0.25s;
   z-index: 0;
 }
@@ -154,7 +154,7 @@
 }
 
 .card.about .skills > ul li:hover:before {
-  transform: translateX(0px);
+  transform: translateY(0px);
 }
 
 .card.about .skills > ul li.unity::before,
